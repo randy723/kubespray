@@ -1,0 +1,2 @@
+# Settings for containerized control plane (etcd)
+etcd_deployment_type: docker

@@ -67,7 +67,8 @@ kube_users:
 
 # Choose network plugin (calico, contiv, weave or flannel)
 # Can also be set to 'cloud', which lets the cloud provider setup appropriate routing
-kube_network_plugin: calico
+#kube_network_plugin: calico
+kube_network_plugin: weave
 
 # weave's network password for encryption
 # if null then no network encryption
@@ -113,9 +114,11 @@ cluster_name: cluster.local
 # Subdomains of DNS domain to be resolved via /etc/resolv.conf for hostnet pods
 ndots: 2
 # Can be dnsmasq_kubedns, kubedns or none
-dns_mode: kubedns
+#dns_mode: kubedns
+dns_mode: dnsmasq_kubedns
 # Can be docker_dns, host_resolvconf or none
-resolvconf_mode: docker_dns
+#resolvconf_mode: docker_dns
+resolvconf_mode: host_resolvconf
 # Deploy netchecker app to verify DNS resolve as an HTTP service
 deploy_netchecker: false
 # Ip address of the kubernetes skydns service
@@ -134,8 +137,7 @@ docker_daemon_graph: "/var/lib/docker"
 docker_options: "--insecure-registry={{ kube_service_addresses }} --graph={{ docker_daemon_graph }}  {{ docker_log_opts }}"
 docker_bin_dir: "/usr/bin"
 
-# Settings for containerized control plane (etcd/kubelet/secrets)
-etcd_deployment_type: docker
+# Settings for containerized control plane (kubelet/secrets)
 kubelet_deployment_type: host
 vault_deployment_type: docker
 helm_deployment_type: host
@@ -163,9 +165,9 @@ local_volumes_enabled: false
 persistent_volumes_enabled: false
 
 # Make a copy of kubeconfig on the host that runs Ansible in GITDIR/artifacts
-# kubeconfig_localhost: false
+kubeconfig_localhost: false
 # Download kubectl onto the host that runs Ansible in GITDIR/artifacts
-# kubectl_localhost: false
+kubectl_localhost: false
 
 # dnsmasq
 # dnsmasq_upstream_dns_servers:
